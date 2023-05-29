@@ -14,7 +14,7 @@ import './style.scss'
 import PropTypes from "prop-types";
 import CircleRating from "../circleRating/CircleRating.jsx";
 import Genres from "../genres/Genres.jsx";
-const Carousel = ({data, loading}) => {
+const Carousel = ({data, loading, endpoint}) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
     const navigate = useNavigate();
@@ -64,6 +64,9 @@ const Carousel = ({data, loading}) => {
                                 <div
                                     key={item.id}
                                     className="carouselItem"
+                                    onClick={() =>
+                                        navigate(`/${item.media_type || endpoint}/${ item.id}`)
+                                    }
                                 >
                                     <div className="posterBlock">
                                         <Img src={posterUrl} />
@@ -104,7 +107,8 @@ const Carousel = ({data, loading}) => {
 
 Carousel.propTypes = {
     data: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    endpoint: PropTypes.string
 }
 
 export default Carousel;
